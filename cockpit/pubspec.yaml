@@ -171,8 +171,10 @@ dependencies:
 
   # Wave 2 — arrastar arquivos do SO (Finder/Explorer/etc.) pro input. O
   # drag-drop interno do Flutter não pega drops nativos; o desktop_drop cobre
-  # macOS/Linux/Windows. NOTA: registrar esta dep no plano 37.
-  desktop_drop: ^0.5.0
+  # macOS/Linux/Windows. Absorvido em plugins/ com 1 patch macOS (hover das
+  # platform views) — ver plugins/desktop_drop/README.md e plan/70.
+  desktop_drop:
+    path: plugins/desktop_drop
 
   # FFI direto no app: Job Object do Windows que amarra filhos à vida do
   # processo (core/utils/child_process_lifetime.dart). O `win32` saiu junto com
