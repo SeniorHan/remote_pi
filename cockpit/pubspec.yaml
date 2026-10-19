@@ -409,3 +409,13 @@ dependency_overrides:
       url: https://github.com/jacobaraujo7/libghostty.git
       ref: cockpit-pin-flterm-upstream-2026-10d
       path: packages/libghostty
+  # Hover no WebView2 (Windows): o plugin 0.6.0 reenvia só MOVE ao
+  # CompositionController, nunca LEAVE, e um method call por pixel. Fork pinado
+  # em TAG (regra acima) com Leave no onExit + coalescência por frame + guard do
+  # null deref no callHandler (plano 70). Remover quando o upstream publicar
+  # (PR aberto a partir da branch cockpit/windows-hover do fork).
+  flutter_inappwebview_windows:
+    git:
+      url: https://github.com/jacobaraujo7/flutter_inappwebview.git
+      ref: cockpit-windows-hover-1
+      path: flutter_inappwebview_windows
