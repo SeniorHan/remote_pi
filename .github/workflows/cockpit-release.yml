@@ -749,7 +749,9 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "17"
+          # AGP 9 (Flutter 3.50): o lint usa List.removeLast() (Java 21); com
+          # JDK 17 o lintVitalAnalyzeRelease cai com NoSuchMethodError.
+          java-version: "21"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
