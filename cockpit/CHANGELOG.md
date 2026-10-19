@@ -24,7 +24,7 @@ As versões seguem o `version:` do `pubspec.yaml` (SSOT). O campo `notes` do
     linhas não-vazias — o começo da seção deve fazer sentido sozinho.
 -->
 
-## [2.1.16] - 2026-10-19
+## [2.1.17] - 2026-10-19
 
 **Hover finally works inside web views, plus find-in-terminal.** Previews,
 `.panel` dashboards and the built-in browser now react to the mouse like a
@@ -53,10 +53,13 @@ normal page: `:hover` styles, link cursors and tooltips follow the pointer.
   horizontal scroll.
 - **Linux**: new workspaces could get a broken path when the folder picker
   output carried a Mesa `DRI_PRIME` warning.
+- **Linux**: the bundled `cockpit-server` could fail to start after the Dart
+  3.14 toolchain change (AOT snapshot resolved by executable name).
 
 ### Changed
 
-- Built with Flutter 3.50 (beta channel, Dart 3.14).
+- Built with Flutter 3.50 (beta channel, Dart 3.14); Android now builds with
+  AGP 9.3 and Gradle 9.5.
 
 ## [2.1.15] - 2026-10-11
 
