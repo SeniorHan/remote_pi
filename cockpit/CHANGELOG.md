@@ -24,7 +24,7 @@ As versões seguem o `version:` do `pubspec.yaml` (SSOT). O campo `notes` do
     linhas não-vazias — o começo da seção deve fazer sentido sozinho.
 -->
 
-## [2.1.17] - 2026-10-19
+## [2.1.18] - 2026-10-19
 
 **Hover finally works inside web views, plus find-in-terminal.** Previews,
 `.panel` dashboards and the built-in browser now react to the mouse like a
