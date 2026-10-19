@@ -21,6 +21,7 @@ publicado no `desktop_drop` 0.9.0 em 2026-10-16).
 
 ## Quando remover
 
-Quando o Flutter stable trouxer Dart >= 3.13.5 (o 3.50 beta traz 3.14), trocar
-por `desktop_drop: ^0.9.1` no pubspec e apagar esta pasta. O 0.9.x também pede
-`cross_file ^0.4`, que o `shadcn_flutter` só libera a partir do 0.0.54.
+O Dart já é 3.14 (Flutter 3.50 beta desde 2026-10-19), então o que segura é
+só o `cross_file`: `desktop_drop` 0.9.x pede `^0.4` e o `shadcn_flutter` 0.0.52
+pede `^0.3.4` (0.0.54+ não depende mais). Ao subir o shadcn para 0.0.54+,
+trocar por `desktop_drop: ^0.9.1` no pubspec e apagar esta pasta.
