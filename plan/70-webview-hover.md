@@ -81,7 +81,7 @@ link, sair do webview limpa o hover; CPU em idle com o mouse parado não sobe.
 
 ## Definition of Done
 
-- [ ] Passo 1: `desktop_drop` absorvido com patch, hover funcionando no macOS, CI verde
+- [x] Passo 1: `desktop_drop` absorvido com patch, hover funcionando no macOS, CI verde
 - [ ] Passo 2: Flutter beta 3.50 pinado no CI com release de teste verde
 - [ ] Passo 3: fork do `flutter_inappwebview_windows` com `Leave` + coalescência, validado no Windows
 
