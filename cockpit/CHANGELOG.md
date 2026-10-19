@@ -24,6 +24,40 @@ As versões seguem o `version:` do `pubspec.yaml` (SSOT). O campo `notes` do
     linhas não-vazias — o começo da seção deve fazer sentido sozinho.
 -->
 
+## [2.1.16] - 2026-10-19
+
+**Hover finally works inside web views, plus find-in-terminal.** Previews,
+`.panel` dashboards and the built-in browser now react to the mouse like a
+normal page: `:hover` styles, link cursors and tooltips follow the pointer.
+
+### Added
+
+- **Find in terminal** (⌘F on macOS, Ctrl+F elsewhere): a floating bar over
+  the terminal buffer with match highlighting, "N of M" counter, Enter and
+  Shift+Enter to step, Esc to close. Works on both the Ghostty and the xterm
+  engine.
+- **Go to File in the menu** (⌘P): also works while the focus is inside a
+  markdown or HTML preview.
+
+### Fixed
+
+- **Hover in web views (macOS)**: the native drop target used for Finder
+  drag-and-drop covered the whole window and stole the pointer from embedded
+  web views, so pages never saw mouse movement. It is now transparent to the
+  pointer unless a drag is in progress.
+- **Hover in web views (Windows)**: the WebView2 host now sends mouse leave
+  events and batches cursor moves per frame, so hover state and the cursor
+  reset when the pointer leaves the page.
+- **Markdown preview** fills the pane width instead of a centered 860px
+  column; long paths and URLs inside table cells wrap instead of forcing a
+  horizontal scroll.
+- **Linux**: new workspaces could get a broken path when the folder picker
+  output carried a Mesa `DRI_PRIME` warning.
+
+### Changed
+
+- Built with Flutter 3.50 (beta channel, Dart 3.14).
+
 ## [2.1.15] - 2026-10-11
 
 **Four agent skills instead of one, installed on every machine (including
