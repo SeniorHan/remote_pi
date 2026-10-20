@@ -33,8 +33,25 @@ jobs:
           rustup target add aarch64-apple-darwin x86_64-apple-darwin
           cargo --version
 
+      # linux-x64 远程主机支持（上游只出 linux-arm64）。
+      - name: Build linux-x64 cockpit-server bundle
+        run: |
+          rustup target add x86_64-unknown-linux-gnu
+          chmod +x tool/build-linux-x64-server-bundle.sh
+          tool/build-linux-x64-server-bundle.sh build/server-x64-bundle
+        env:
+          FLUTTER_ROOT: ${{ github.workspace }}/flutter
+
       - run: flutter pub get
       - run: flutter build macos --release
+
+      # 把 linux-x64 bundle 塞进 app bundle，远程工作区即可连 x64 Linux 主机。
+      - name: Embed linux-x64 bundle into app
+        run: |
+          APP="build/macos/Build/Products/Release/Cockpit.app"
+          cp -R build/server-x64-bundle \
+            "$APP/Contents/Resources/cockpit-server-bundle/targets/linux-x64"
+          file "$APP/Contents/Resources/cockpit-server-bundle/targets/linux-x64/bin/cockpit-server"
 
       - name: Ad-hoc sign & zip
         run: |
