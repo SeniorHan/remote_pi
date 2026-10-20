@@ -1,0 +1,49 @@
+# Fork-only: build Cockpit.app (unsigned / ad-hoc) as a downloadable artifact.
+# 本地无 Xcode 时的自用出包通道；不进上游 PR。无 Developer ID 签名与公证，
+# 首次打开需右键 -> 打开（或 xattr -cr 移除 quarantine）。
+name: cockpit-build-unsigned
+
+on:
+  workflow_dispatch:
+
+jobs:
+  macos:
+    name: macOS app (unsigned)
+    runs-on: macos-latest
+    defaults: { run: { working-directory: cockpit } }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: pubspec.yaml
+          channel: beta
+          cache: true
+
+      # ghostty 需要固定版本的 Zig 编译（同上游 cockpit-release.yml）。
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: 0.16.0
+
+      # Run Script phase 会以 universal 二进制构建 cockpit-cli。
+      - name: Rust + targets macOS universal
+        run: |
+          rustup toolchain install stable --profile minimal --no-self-update
+          rustup default stable
+          rustup target add aarch64-apple-darwin x86_64-apple-darwin
+          cargo --version
+
+      - run: flutter pub get
+      - run: flutter build macos --release
+
+      - name: Ad-hoc sign & zip
+        run: |
+          APP="build/macos/Build/Products/Release/Cockpit.app"
+          codesign --force --deep --sign - "$APP"
+          ditto -c -k --keepParent "$APP" Cockpit-zh.zip
+          shasum -a 256 Cockpit-zh.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Cockpit-zh
+          path: cockpit/Cockpit-zh.zip
