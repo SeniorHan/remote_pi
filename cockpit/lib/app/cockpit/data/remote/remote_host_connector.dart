@@ -658,6 +658,16 @@ class RemoteHostConnector {
 
   Future<void> _installAndStartServer(HostShell shell) async {
     var installed = await shell.serverInstalled();
+    // Stale por duas vias: marcado depois de uma conexão bem-sucedida (a
+    // freshness barata, uma vez por host por sessão), ou detectado AQUI quando
+    // o servidor instalado não atende por transporte nenhum — o caso do binário
+    // velho demais para os novos argumentos de arranque, em que a marca nunca
+    // chegou a ser levantada. O digest custa um SSH só quando instalado e a
+    // marca ainda não existe.
+    if (installed && !_staleServer) {
+      _staleServer = await _serverFreshness.run(() => _remoteServerIsStale(shell));
+      if (_staleServer) installed = false;
+    }
     if (installed && _staleServer) installed = false;
 
     if (!installed) {
